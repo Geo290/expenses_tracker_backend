@@ -1,4 +1,4 @@
-package com.xitcode.expenseTracker.rest;
+package com.xitcode.expenseTracker.controller;
 
 import com.xitcode.expenseTracker.dto.DtoUser;
 import com.xitcode.expenseTracker.dto.DtoUserResponse;

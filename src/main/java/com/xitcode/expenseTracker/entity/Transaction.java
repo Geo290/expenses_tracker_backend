@@ -16,8 +16,8 @@ import lombok.*;
 
 @Getter 
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "transactions")
