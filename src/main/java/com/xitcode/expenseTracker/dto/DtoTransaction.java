@@ -1,21 +1,27 @@
 package com.xitcode.expenseTracker.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record DtoTransaction(
-        @NotBlank
+        @NotNull
+        @Positive
         @Min(0)
         @Max(900000)
         BigDecimal amount,
 
+        @NotBlank
         String title,
-        @NotBlank LocalDate date,
-        @NotBlank Long categoryId,
-        @NotBlank Long userId
+        @NotNull
+        @PastOrPresent
+        LocalDate date,
+        @NotNull
+        @Positive
+        Long categoryId,
+        @NotNull
+        @Positive
+        Long userId
         ) {
 }

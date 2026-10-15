@@ -1,5 +1,6 @@
 package com.xitcode.expenseTracker.service.implementations;
 
+import com.xitcode.expenseTracker.exception.exceptions.NoDataFoundException;
 import com.xitcode.expenseTracker.repository.CategoryRepository;
 import com.xitcode.expenseTracker.repository.TransactionRepository;
 import com.xitcode.expenseTracker.repository.UserRepository;
@@ -24,7 +25,11 @@ public class TransactionServiceImpl implements TransactionService {
     private final CategoryRepository categoryRepository;
 
     @Autowired
-    public TransactionServiceImpl(TransactionRepository transactionRepository, UserRepository userRepository, CategoryRepository categoryRepository){
+    public TransactionServiceImpl(
+            TransactionRepository transactionRepository,
+            UserRepository userRepository,
+            CategoryRepository categoryRepository
+    ){
         this.transactionRepository = transactionRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
@@ -33,8 +38,11 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public DtoTransactionResponse save(DtoTransaction dtoTransaction) {
 
-        Users user = userRepository.findById(dtoTransaction.userId()).orElseThrow(()-> new BadCredentialsException("User not found"));
-        Category category = categoryRepository.findById(dtoTransaction.categoryId()).orElseThrow(()-> new IndexOutOfBoundsException("Category not found"));
+        Users user = userRepository.findById(dtoTransaction.userId())
+                .orElseThrow(()-> new BadCredentialsException("User not found"));
+
+        Category category = categoryRepository.findById(dtoTransaction.categoryId())
+                .orElseThrow(()-> new NoDataFoundException("Category not found"));
 
         Transaction t = new Transaction();
         t.setTitle(dtoTransaction.title());
@@ -46,34 +54,47 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepository.save(t);
 
         return new DtoTransactionResponse(
+                t.getId(),
                 t.getAmount(),
                 t.getTitle(),
                 t.getDate(),
-                t.getCategory().getId()
+                t.getCategory().getId(),
+                t.getCategory().getName(),
+                t.getCategory().getType()
         );
     }
 
     @Override
-    public List<DtoTransactionResponse> findAllById(long user_id) {
-        return List.of();
+    public List<Transaction> findAllByUserId(long user_id) {
+        Users res = userRepository.findById(user_id).orElseThrow(
+                () -> new NoDataFoundException("User Not Found"));
+
+        return transactionRepository.findAllByUser(res);
     }
 
     @Override
     public DtoTransactionResponse findById(long transaction_id) {
-        Transaction t = transactionRepository.findById(transaction_id).orElseThrow(()-> new RuntimeException("Transaction Not Found"));
+        Transaction t = transactionRepository.findById(transaction_id).orElseThrow(
+                ()-> new NoDataFoundException("Transaction Not Found"));
 
         return new DtoTransactionResponse(
+                t.getId(),
                 t.getAmount(),
                 t.getTitle(),
                 t.getDate(),
-                t.getCategory().getId()
+                t.getCategory().getId(),
+                t.getCategory().getName(),
+                t.getCategory().getType()
         );
     }
 
     @Override
     public DtoTransactionResponse update(DtoUpdateTransaction dtoUpdateTransaction, long transaction_id) {
-        Transaction t = transactionRepository.findById(transaction_id).orElseThrow(()-> new RuntimeException("Transaction NOT Found"));
-        Category category = categoryRepository.findById(dtoUpdateTransaction.categoryId()).orElseThrow(()-> new RuntimeException("Category not Found"));
+        Transaction t = transactionRepository.findById(transaction_id)
+                .orElseThrow(()-> new NoDataFoundException("Transaction NOT Found"));
+
+        Category category = categoryRepository.findById(dtoUpdateTransaction.categoryId())
+                .orElseThrow(()-> new NoDataFoundException("Category not Found"));
 
         t.setAmount(dtoUpdateTransaction.amount());
         t.setTitle(dtoUpdateTransaction.title());
@@ -83,16 +104,21 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepository.save(t);
 
         return new DtoTransactionResponse(
+                t.getId(),
                 t.getAmount(),
                 t.getTitle(),
                 t.getDate(),
-                t.getCategory().getId()
+                t.getCategory().getId(),
+                t.getCategory().getName(),
+                t.getCategory().getType()
         );
     }
 
     @Override
     public void delete(long transaction_id) {
-        Transaction t = transactionRepository.findById(transaction_id).orElseThrow(()-> new RuntimeException("Transaction NOT Found"));
+        Transaction t = transactionRepository.findById(transaction_id)
+                .orElseThrow(()-> new NoDataFoundException("Transaction NOT Found"));
+
         transactionRepository.delete(t);
     }
 }

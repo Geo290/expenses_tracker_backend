@@ -1,5 +1,6 @@
 package com.xitcode.expenseTracker.service.implementations;
 
+import com.xitcode.expenseTracker.exception.exceptions.NoDataFoundException;
 import com.xitcode.expenseTracker.repository.UserRepository;
 import com.xitcode.expenseTracker.dto.DtoUser;
 import com.xitcode.expenseTracker.dto.DtoUserResponse;
@@ -14,8 +15,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder){
@@ -27,12 +28,12 @@ public class UserServiceImpl implements UserService {
     public DtoUserResponse login(DtoUser dtoUser) {
         // Business logic
         Users user = userRepository.findByUserName(dtoUser.userName())
-                .orElseThrow(()-> new BadCredentialsException("User not found"));
+                .orElseThrow(()-> new NoDataFoundException("User not found"));
 
         String codePassword = user.getPassword();
 
         if(!passwordEncoder.matches(dtoUser.password(), codePassword)){
-            throw new BadCredentialsException("Bad Credentials");
+            throw new BadCredentialsException("Password or Username may be wrong");
         }
         return new DtoUserResponse(
                 user.getIdUser(),

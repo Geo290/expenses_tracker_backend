@@ -1,5 +1,6 @@
 package com.xitcode.expenseTracker.controller;
 
+import com.xitcode.expenseTracker.entity.Transaction;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +38,8 @@ public class TransactionController {
 	}
 
 	@GetMapping("/user/{id}")
-	public List<DtoTransactionResponse> findAllById(@PathVariable Long id) {
-		return service.findAllById(id);
+	public List<Transaction> findAllByUserId(@PathVariable Long id) {
+		return service.findAllByUserId(id);
 	}
 
 	@GetMapping("/{id}")
