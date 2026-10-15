@@ -19,9 +19,9 @@ import java.util.List;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private TransactionRepository transactionRepository;
-    private UserRepository userRepository;
-    private CategoryRepository categoryRepository;
+    private final TransactionRepository transactionRepository;
+    private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
     public TransactionServiceImpl(TransactionRepository transactionRepository, UserRepository userRepository, CategoryRepository categoryRepository){
