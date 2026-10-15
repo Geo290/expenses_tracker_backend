@@ -1,6 +1,5 @@
 package com.xitcode.expenseTracker.service.implementations;
 
-import com.xitcode.expenseTracker.dto.DtoCategoryResponse;
 import com.xitcode.expenseTracker.entity.Category;
 import com.xitcode.expenseTracker.repository.CategoryRepository;
 import com.xitcode.expenseTracker.service.abstracts.CategoryService;

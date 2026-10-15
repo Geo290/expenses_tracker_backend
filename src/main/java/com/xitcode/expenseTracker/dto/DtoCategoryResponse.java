@@ -2,7 +2,8 @@ package com.xitcode.expenseTracker.dto;
 
 import com.xitcode.expenseTracker.enums.CategoryType;
 
-public record DtoCategory(    Long id,
-                              CategoryType type) {
-
-}
+public record DtoCategoryResponse(
+    Long id,
+    String name,
+    CategoryType type
+) { }
