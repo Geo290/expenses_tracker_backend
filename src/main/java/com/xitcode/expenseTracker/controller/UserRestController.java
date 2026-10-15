@@ -2,7 +2,7 @@ package com.xitcode.expenseTracker.controller;
 
 import com.xitcode.expenseTracker.dto.DtoUser;
 import com.xitcode.expenseTracker.dto.DtoUserResponse;
-import com.xitcode.expenseTracker.service.UserService;
+import com.xitcode.expenseTracker.service.abstracts.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
