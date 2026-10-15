@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
-import com.xitcode.expenseTracker.service.TransactionServiceImpl;
+import com.xitcode.expenseTracker.service.implementations.TransactionServiceImpl;
 import com.xitcode.expenseTracker.dto.DtoTransactionResponse;
 import com.xitcode.expenseTracker.dto.DtoUpdateTransaction;
 import com.xitcode.expenseTracker.dto.DtoTransaction;
