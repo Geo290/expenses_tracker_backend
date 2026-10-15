@@ -1,14 +1,15 @@
-package com.xitcode.expenseTracker.service;
+package com.xitcode.expenseTracker.service.implementations;
 
-import com.xitcode.expenseTracker.dao.CategoryRepository;
-import com.xitcode.expenseTracker.dao.TransactionRepository;
-import com.xitcode.expenseTracker.dao.UserRepository;
+import com.xitcode.expenseTracker.repository.CategoryRepository;
+import com.xitcode.expenseTracker.repository.TransactionRepository;
+import com.xitcode.expenseTracker.repository.UserRepository;
 import com.xitcode.expenseTracker.dto.DtoTransaction;
 import com.xitcode.expenseTracker.dto.DtoTransactionResponse;
 import com.xitcode.expenseTracker.dto.DtoUpdateTransaction;
 import com.xitcode.expenseTracker.entity.Category;
 import com.xitcode.expenseTracker.entity.Transaction;
 import com.xitcode.expenseTracker.entity.Users;
+import com.xitcode.expenseTracker.service.abstracts.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TransactionServiceImpl implements TransactionService{
+public class TransactionServiceImpl implements TransactionService {
 
     private TransactionRepository transactionRepository;
     private UserRepository userRepository;

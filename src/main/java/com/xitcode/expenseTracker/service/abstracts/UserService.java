@@ -1,4 +1,4 @@
-package com.xitcode.expenseTracker.service;
+package com.xitcode.expenseTracker.service.abstracts;
 
 import com.xitcode.expenseTracker.dto.DtoUser;
 import com.xitcode.expenseTracker.dto.DtoUserResponse;
